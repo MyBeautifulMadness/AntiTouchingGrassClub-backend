@@ -1,41 +1,24 @@
-package com.example.antitouch.entity;
+package com.example.antitouch.dto;
 
 import com.example.antitouch.enums.PaymentMethod;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "bookings")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class Booking {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class BookingResponse {
     private String id;
-
     private String firstName;
     private String lastName;
     private String phone;
     private String email;
-
     private String pcId;
-
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-
     private String finalPrice;
-
     private String qrConfirmationId;
     private String qrPaymentId;
 }

@@ -25,7 +25,7 @@ public class AuthService {
         user.setPhone(request.getPhone());
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
-        user.setAdmin(true);
+        user.setAdmin(false);
 
         userRepository.save(user);
         String token = generateToken();
