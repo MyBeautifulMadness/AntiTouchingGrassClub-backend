@@ -2,23 +2,16 @@ package com.example.antitouch.dto;
 
 
 import com.example.antitouch.entity.PcStatus;
-import lombok.*;
+import lombok.Data;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class PcDto {
-    private Long id;
+public class PcUpdateRequest {
     private String processor;
     private String gpu;
     private String motherboard;
     private String ram;
     private String disk;
     private String gamesInstalled;
-    private Integer monitorHz;
+    private int monitorHz;
     private PcStatus status;
-    private Long branchId;
-    private Integer x;
-    private Integer y;
 }
