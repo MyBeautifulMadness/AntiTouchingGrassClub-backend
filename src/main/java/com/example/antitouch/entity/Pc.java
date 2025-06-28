@@ -28,4 +28,6 @@ public class Pc {
     @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;
+    private Integer x;
+    private Integer y;
 }

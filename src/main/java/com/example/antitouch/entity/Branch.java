@@ -15,6 +15,11 @@ public class Branch {
     private Long id;
 
     private String name;
+    //private String layoutUrl;
 
-    private String layoutUrl;
+    private int width;
+    private int height;
+
+    @Column(columnDefinition = "TEXT")
+    private String placesJson;
 }

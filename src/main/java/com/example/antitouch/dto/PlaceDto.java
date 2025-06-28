@@ -1,4 +1,11 @@
 package com.example.antitouch.dto;
 
-public class PlaceDto {
+import lombok.Data;
+
+    @Data
+    public class PlaceDto {
+        private int x;
+        private int y;
+        private boolean hasPc;
+        private Long pcId;
 }
