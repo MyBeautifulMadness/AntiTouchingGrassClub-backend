@@ -3,6 +3,8 @@ package com.example.antitouch.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -17,6 +19,11 @@ public class User {
     private String phone;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
+
+    @Column(columnDefinition = "DATE")
+    private LocalDate birthday;
 
     private boolean isAdmin;
 }

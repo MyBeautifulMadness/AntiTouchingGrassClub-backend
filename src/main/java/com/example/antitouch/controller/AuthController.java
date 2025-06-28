@@ -1,11 +1,9 @@
 package com.example.antitouch.controller;
 
 
-import com.example.antitouch.dto.AuthRequest;
-import com.example.antitouch.dto.AuthResponse;
-import com.example.antitouch.dto.RegisterRequest;
-import com.example.antitouch.dto.UserDto;
+import com.example.antitouch.dto.*;
 import com.example.antitouch.entity.User;
+import com.example.antitouch.repository.UserRepository;
 import com.example.antitouch.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final UserRepository userRepository;
 
     @PostMapping("/register")
     public AuthResponse register(@RequestBody RegisterRequest request) {
@@ -27,11 +26,29 @@ public class AuthController {
         return authService.login(request);
     }
 
-    @GetMapping("/me")
+    @GetMapping("/profile")
     public UserDto me(@RequestHeader("Authorization") String token) {
         String cleanToken = token.replace("Token ", "").replace("Bearer ", "");
         User user = authService.getUserByToken(cleanToken)
                 .orElseThrow(() -> new RuntimeException("Unauthorized"));
+
+        return toDto(user);
+    }
+
+    @PutMapping("/profile")
+    public UserDto updateProfile(@RequestHeader("Authorization") String token,
+                                 @RequestBody UpdateProfileRequest request) {
+        String cleanToken = token.replace("Token ", "").replace("Bearer ", "");
+        User user = authService.getUserByToken(cleanToken)
+                .orElseThrow(() -> new RuntimeException("Unauthorized"));
+
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setBirthday(request.getBirthday());
+        user.setEmail(request.getEmail());
+        user.setPhone(request.getPhone());
+
+        userRepository.save(user);
 
         return toDto(user);
     }
@@ -48,6 +65,9 @@ public class AuthController {
                 .email(user.getEmail())
                 .phone(user.getPhone())
                 .username(user.getUsername())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .birthday(user.getBirthday())
                 .isAdmin(user.isAdmin())
                 .build();
     }
