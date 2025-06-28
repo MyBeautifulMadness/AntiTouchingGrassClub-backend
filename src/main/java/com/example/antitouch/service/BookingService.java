@@ -4,12 +4,17 @@ import com.example.antitouch.FileUploader;
 import com.example.antitouch.QrCodeGenerator;
 import com.example.antitouch.dto.BookingRequest;
 import com.example.antitouch.dto.BookingResponse;
+import com.example.antitouch.dto.BookingTimeDto;
 import com.example.antitouch.entity.Booking;
 import com.example.antitouch.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -61,5 +66,15 @@ public class BookingService {
                 .qrConfirmationId(booking.getQrConfirmationId())
                 .qrPaymentId(booking.getQrPaymentId())
                 .build();
+    }
+
+    public List<BookingTimeDto> getBookingsByPcAndDate(String pcId, LocalDate date) {
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.plusDays(1).atStartOfDay();
+
+        return bookingRepository.findByPcIdAndDate(pcId, startOfDay, endOfDay)
+                .stream()
+                .map(b -> new BookingTimeDto(b.getStartTime(), b.getEndTime()))
+                .collect(Collectors.toList());
     }
 }
