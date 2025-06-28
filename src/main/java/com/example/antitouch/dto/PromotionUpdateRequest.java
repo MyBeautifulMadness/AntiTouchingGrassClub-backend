@@ -1,4 +1,4 @@
-package com.example.demo.promotions.dto;
+package com.example.antitouch.dto;
 
 public class PromotionUpdateRequest extends PromotionCreateRequest {
 }

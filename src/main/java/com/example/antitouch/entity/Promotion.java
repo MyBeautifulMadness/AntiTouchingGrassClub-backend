@@ -1,30 +1,32 @@
 package com.example.antitouch.entity;
 
+import com.example.antitouch.enums.PlatformType;
+import com.example.antitouch.enums.PromotionType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "promotions")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Table(name = "promotion")
 public class Promotion {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String title;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Enumerated(EnumType.STRING)
     private PromotionType type;
 
-    @Enumerated(EnumType.STRING)
-    private PlatformType platform;
-
+    private double promotionValue;
     private String description;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    private String imageUrl;
+    @Enumerated(EnumType.STRING)
+    private PlatformType platformFor;
 
-    private boolean isActive;
+    private String imageId;
 }

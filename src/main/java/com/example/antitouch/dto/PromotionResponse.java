@@ -1,7 +1,7 @@
-package com.example.demo.promotions.dto;
+package com.example.antitouch.dto;
 
-import com.example.demo.promotions.enums.PlatformType;
-import com.example.demo.promotions.enums.PromotionType;
+import com.example.antitouch.enums.PlatformType;
+import com.example.antitouch.enums.PromotionType;
 import lombok.Data;
 
 import java.time.LocalDateTime;

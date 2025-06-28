@@ -1,4 +1,4 @@
-package com.example.demo.promotions.enums;
+package com.example.antitouch.enums;
 
 public enum PlatformType {
     PC,
