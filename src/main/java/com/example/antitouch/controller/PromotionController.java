@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/promotions")
 @RequiredArgsConstructor
 public class PromotionController {
-
+    /*
     private final PromotionService service;
 
     @GetMapping
@@ -38,4 +38,5 @@ public class PromotionController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+     */
 }

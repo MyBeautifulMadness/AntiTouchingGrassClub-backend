@@ -3,7 +3,7 @@ package com.example.antitouch.service;
 
 import com.example.antitouch.dto.PromotionDto;
 import com.example.antitouch.entity.Promotion;
-import com.example.antitouch.mapper.PromotionMapper;
+//import com.example.antitouch.mapper.PromotionMapper;
 import com.example.antitouch.repository.PromotionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PromotionService {
-
+    /*
     private final PromotionRepository repository;
     private final PromotionMapper mapper;
 
@@ -44,4 +44,6 @@ public class PromotionService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+     */
 }

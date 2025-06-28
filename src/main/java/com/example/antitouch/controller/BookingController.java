@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/bookings")
 @RequiredArgsConstructor
 public class BookingController {
-
+    /*
     private final BookingService service;
 
     @GetMapping
@@ -33,4 +33,6 @@ public class BookingController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+
+     */
 }

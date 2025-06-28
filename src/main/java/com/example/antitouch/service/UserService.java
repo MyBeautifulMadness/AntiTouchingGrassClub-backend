@@ -2,7 +2,6 @@ package com.example.antitouch.service;
 
 import com.example.antitouch.dto.UserDto;
 import com.example.antitouch.entity.User;
-import com.example.antitouch.mapper.UserMapper;
 import com.example.antitouch.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,22 +13,38 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository repository;
-    private final UserMapper mapper;
 
     public List<UserDto> getAll() {
-        return repository.findAll().stream().map(mapper::toDto).toList();
+        return repository.findAll().stream()
+                .map(this::toDto)
+                .toList();
     }
 
     public UserDto getById(Long id) {
-        return mapper.toDto(repository.findById(id).orElseThrow());
+        User user = repository.findById(id).orElseThrow();
+        return toDto(user);
     }
 
     public UserDto create(UserDto dto) {
-        User entity = mapper.toEntity(dto);
-        return mapper.toDto(repository.save(entity));
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setPhone(dto.getPhone());
+        user.setUsername(dto.getUsername());
+        user.setAdmin(dto.isAdmin());
+        return toDto(repository.save(user));
     }
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    private UserDto toDto(User user) {
+        UserDto dto = new UserDto();
+        dto.setId(user.getId());
+        dto.setEmail(user.getEmail());
+        dto.setPhone(user.getPhone());
+        dto.setUsername(user.getUsername());
+        dto.setAdmin(user.isAdmin());
+        return dto;
     }
 }

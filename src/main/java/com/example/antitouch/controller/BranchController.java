@@ -1,7 +1,10 @@
 package com.example.antitouch.controller;
 
 import com.example.antitouch.dto.BranchDto;
-import com.example.antitouch.service.BranchService;
+import com.example.antitouch.entity.Branch;
+import com.example.antitouch.entity.User;
+import com.example.antitouch.repository.BranchRepository;
+import com.example.antitouch.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,30 +15,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BranchController {
 
-    private final BranchService service;
+    private final BranchRepository branchRepository;
+    private final AuthService authService;
 
     @GetMapping
-    public List<BranchDto> getAll() {
-        return service.getAll();
+    public List<BranchDto> getAllBranches(@RequestHeader("Authorization") String token) {
+        getUserOrThrow(token); // Авторизация
+        return branchRepository.findAll().stream()
+                .map(this::toDto)
+                .toList();
     }
 
-    @GetMapping("/{id}")
-    public BranchDto getById(@PathVariable Long id) {
-        return service.getById(id);
+    private BranchDto toDto(Branch branch) {
+        BranchDto dto = new BranchDto();
+        dto.setId(branch.getId());
+        dto.setName(branch.getName());
+        dto.setLayoutUrl(branch.getLayoutUrl());
+        return dto;
     }
 
-    @PostMapping
-    public BranchDto create(@RequestBody BranchDto dto) {
-        return service.create(dto);
-    }
-
-    @PutMapping("/{id}")
-    public BranchDto update(@PathVariable Long id, @RequestBody BranchDto dto) {
-        return service.update(id, dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    private User getUserOrThrow(String tokenHeader) {
+        String token = tokenHeader.replace("Token ", "").replace("Bearer ", "");
+        return authService.getUserByToken(token)
+                .orElseThrow(() -> new RuntimeException("Unauthorized"));
     }
 }
