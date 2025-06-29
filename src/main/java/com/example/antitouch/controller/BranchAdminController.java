@@ -46,7 +46,6 @@ public class BranchAdminController {
             throw new RuntimeException("Forbidden");
         }
 
-        // генерируем пустые клетки
         List<PlaceDto> generatedPlaces = new ArrayList<>();
         for (int x = 0; x < dto.getWidth(); x++) {
             for (int y = 0; y < dto.getHeight(); y++) {
@@ -59,7 +58,6 @@ public class BranchAdminController {
             }
         }
 
-        // сериализуем в JSON
         String placesJson = "[]";
         try {
             placesJson = new ObjectMapper().writeValueAsString(generatedPlaces);
@@ -73,7 +71,6 @@ public class BranchAdminController {
 
         Branch saved = branchRepository.save(branch);
 
-        // ответ с теми же places
         BranchDto response = new BranchDto();
         response.setId(saved.getId());
         response.setName(saved.getName());

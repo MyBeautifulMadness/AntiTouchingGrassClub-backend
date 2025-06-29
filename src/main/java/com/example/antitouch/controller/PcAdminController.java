@@ -41,7 +41,6 @@ public class PcAdminController {
         Branch branch = branchRepository.findById(dto.getBranchId())
                 .orElseThrow(() -> new RuntimeException("Branch not found"));
 
-        // 1создать ПК
         Pc pc = new Pc();
         pc.setProcessor(dto.getProcessor());
         pc.setGpu(dto.getGpu());
@@ -55,9 +54,8 @@ public class PcAdminController {
         pc.setX(dto.getX());
         pc.setY(dto.getY());
 
-        pc = pcRepository.save(pc); // нужно id для pcId
+        pc = pcRepository.save(pc);
 
-        // обновить places в зале
         List<PlaceDto> places = new ArrayList<>();
         try {
             if (branch.getPlacesJson() != null) {
@@ -80,7 +78,6 @@ public class PcAdminController {
             branchRepository.save(branch);
         } catch (Exception ignored) {}
 
-        // ответ
         PcDto response = new PcDto();
         response.setId(pc.getId());
         response.setProcessor(pc.getProcessor());

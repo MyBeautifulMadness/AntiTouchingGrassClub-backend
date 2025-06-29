@@ -26,7 +26,22 @@ public class PcController {
         getUserOrThrow(token);
         return pcRepository.findAll().stream()
                 .filter(pc -> pc.getBranch() != null && pc.getBranch().getId().equals(branchId))
-                .map(this::toDto)
+                .map(pc -> {
+                    PcDto dto = new PcDto();
+                    dto.setId(pc.getId());
+                    dto.setProcessor(pc.getProcessor());
+                    dto.setGpu(pc.getGpu());
+                    dto.setMotherboard(pc.getMotherboard());
+                    dto.setRam(pc.getRam());
+                    dto.setDisk(pc.getDisk());
+                    dto.setGamesInstalled(pc.getGamesInstalled());
+                    dto.setMonitorHz(pc.getMonitorHz());
+                    dto.setStatus(pc.getStatus());
+                    dto.setBranchId(pc.getBranch().getId());
+                    dto.setX(pc.getX());
+                    dto.setY(pc.getY());
+                    return dto;
+                })
                 .toList();
     }
 
@@ -50,6 +65,8 @@ public class PcController {
         dto.setMonitorHz(pc.getMonitorHz());
         dto.setStatus(pc.getStatus());
         dto.setBranchId(pc.getBranch().getId());
+        dto.setX(pc.getX());
+        dto.setY(pc.getY());
         return dto;
     }
 
