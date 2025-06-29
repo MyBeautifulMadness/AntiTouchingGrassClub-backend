@@ -4,6 +4,7 @@ import com.example.antitouch.enums.PlatformType;
 import com.example.antitouch.enums.PromotionType;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -12,8 +13,8 @@ public class PromotionResponse {
     private PromotionType type;
     private double promotionValue;
     private String description;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private PlatformType platformFor;
     private String imageId;
 }

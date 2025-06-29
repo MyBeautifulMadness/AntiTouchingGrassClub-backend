@@ -1,8 +1,12 @@
 package com.example.antitouch.controller;
 
 import com.example.antitouch.dto.PromotionCreateRequest;
+import com.example.antitouch.dto.PromotionPageResponse;
 import com.example.antitouch.entity.Promotion;
 import com.example.antitouch.repository.PromotionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +22,20 @@ public class PromotionController {
     }
 
     @GetMapping
-    public List<Promotion> getAll() {
-        return repository.findAll();
+    public PromotionPageResponse getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Promotion> promotionPage = repository.findAll(pageable);
+
+        return new PromotionPageResponse(
+                promotionPage.getContent(),
+                promotionPage.getNumber(),
+                promotionPage.getSize(),
+                promotionPage.getTotalElements(),
+                promotionPage.getTotalPages()
+        );
     }
 
     @GetMapping("/{id}")
