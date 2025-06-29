@@ -77,4 +77,8 @@ public class BookingService {
                 .map(b -> new BookingTimeDto(b.getStartTime(), b.getEndTime()))
                 .collect(Collectors.toList());
     }
+
+    public List<Booking> getBookingsByEmail(String email) {
+        return bookingRepository.findAllByEmail(email);
+    }
 }

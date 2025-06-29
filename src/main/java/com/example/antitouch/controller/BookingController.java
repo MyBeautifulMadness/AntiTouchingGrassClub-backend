@@ -3,6 +3,7 @@ package com.example.antitouch.controller;
 import com.example.antitouch.dto.BookingRequest;
 import com.example.antitouch.dto.BookingResponse;
 import com.example.antitouch.dto.BookingTimeDto;
+import com.example.antitouch.entity.Booking;
 import com.example.antitouch.repository.BookingRepository;
 import com.example.antitouch.service.BookingService;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,10 @@ public class BookingController {
     ) {
         List<BookingTimeDto> bookings = bookingService.getBookingsByPcAndDate(pcId, date);
         return ResponseEntity.ok(bookings);
+    }
+
+    @GetMapping("/user")
+    public List<Booking> getBookingsByEmail(@RequestParam String email) {
+        return bookingService.getBookingsByEmail(email);
     }
 }

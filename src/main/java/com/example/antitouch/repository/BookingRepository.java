@@ -15,4 +15,6 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     List<Booking> findByPcIdAndDate(@Param("pcId") String pcId,
                                     @Param("startOfDay") LocalDateTime startOfDay,
                                     @Param("endOfDay") LocalDateTime endOfDay);
+
+    List<Booking> findAllByEmail(String email);
 }
