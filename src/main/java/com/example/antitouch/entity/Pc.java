@@ -3,6 +3,8 @@ package com.example.antitouch.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "pcs")
 @Data
@@ -30,4 +32,9 @@ public class Pc {
     private Branch branch;
     private Integer x;
     private Integer y;
+
+    @Enumerated(EnumType.STRING)
+    private PriceLevel priceLevel;
+
+    private LocalDateTime endTime;
 }

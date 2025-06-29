@@ -53,6 +53,8 @@ public class PcAdminController {
         pc.setBranch(branch);
         pc.setX(dto.getX());
         pc.setY(dto.getY());
+        pc.setPriceLevel(dto.getPriceLevel());
+        pc.setEndTime(dto.getEndTime());
 
         pc = pcRepository.save(pc);
 
@@ -91,6 +93,9 @@ public class PcAdminController {
         response.setBranchId(branch.getId());
         response.setX(pc.getX());
         response.setY(pc.getY());
+        response.setPriceLevel(pc.getPriceLevel());
+        response.setEndTime(pc.getEndTime());
+
         return response;
     }
 
@@ -114,6 +119,8 @@ public class PcAdminController {
         pc.setGamesInstalled(request.getGamesInstalled());
         pc.setMonitorHz(request.getMonitorHz());
         pc.setStatus(request.getStatus());
+        pc.setPriceLevel(request.getPriceLevel());
+        pc.setEndTime(request.getEndTime());
 
         pc = pcRepository.save(pc);
 
@@ -130,6 +137,8 @@ public class PcAdminController {
         response.setBranchId(pc.getBranch().getId());
         response.setX(pc.getX());
         response.setY(pc.getY());
+        response.setPriceLevel(pc.getPriceLevel());
+        response.setEndTime(pc.getEndTime());
         return response;
     }
 
