@@ -52,4 +52,9 @@ public class BookingController {
     public List<Booking> getBookingsByEmail(@RequestParam String email) {
         return bookingService.getBookingsByEmail(email);
     }
+
+    @GetMapping("/all")
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
 }
